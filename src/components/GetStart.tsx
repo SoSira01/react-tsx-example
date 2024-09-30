@@ -21,19 +21,16 @@ function GetStart() {
     return (
         <div data-theme={theme}>
             <div className="flex items-center justify-between p-5">
-                {/* Wrap the icon and the heading in a flex container */}
                 <div className="flex items-center gap-2">
-                    <div className="tooltip tooltip-bottom" data-tip="Cat (:">
-                        <FaCat className="h-10 w-10" /> {/* The cat icon */}
+                    <div className="tooltip tooltip-right" data-tip="Cat (: Click to download React-Icon">
+                    <a href='https://react-icons.github.io/react-icons' className='px-10'><FaCat className="h-10 w-10" /> </a>
                     </div>
                     <h1 className="text-4xl font-bold">Vite + React: A Beginner’s Guide</h1>
                 </div>
 
-                {/* Button and theme toggle */}
                 <div className="flex items-center gap-4">
                     <button className="btn btn-primary" onClick={Goback}>Go Back</button>
 
-                    {/* Theme Toggle with Swap */}
                     <label className="swap swap-rotate ">
                         <input type="checkbox" onChange={toggleTheme} />
                         <FiSun className="swap-off h-6 w-6 fill-current" />
@@ -47,7 +44,6 @@ function GetStart() {
                 React is a front-end development open-source JavaScript library used to create user interface (UI) components. Its component-based and declarative characteristics allow developers to create interactive and complex user interfaces.
             </p>
 
-            {/* Additional Info: Why Install Node.js First */}
             <p className='text-2xl font-bold px-8 pb-5'>Why Install Node.js First?</p>
             <p className='mx-14 mb-5'>
                 Before starting any React project, you need to have <strong>Node.js</strong> installed on your system. This is because:
@@ -75,7 +71,6 @@ function GetStart() {
                     ? Project name: › vite-project</code></pre>
             </div>
 
-            {/* Additional Info: How npm install Works */}
             <p className='text-2xl font-bold px-8 pb-5'>How npm install Works</p>
             <p className='mx-14 mb-5'>
                 Once you've created the project using Vite, the next step is running <code>npm install</code>. This command:
@@ -123,18 +118,16 @@ function GetStart() {
 
             <h3 className="text-2xl font-bold px-8 pb-5">The Project Structure</h3>
             <ol className="list-decimal pl-24">
-                <li>src/: This directory is where you'll place your application's React source code.</li>
-                <li>public/: Any static assets placed here will be served as-is.</li>
-                <li>package.json: This file contains your project's dependencies and scripts.</li>
-                <li>vite.config.js: It serves as the configuration file for your Vite project.</li>
+                <li><strong>src/:</strong> This directory is where you'll place your application's React source code.</li>
+                <li><strong>public/:</strong> Any static assets placed here will be served as-is.</li>
+                <li><strong>package.json:</strong> This file contains your project's dependencies and scripts.</li>
+                <li><strong>vite.config.js:</strong> It serves as the configuration file for your Vite project.</li>
             </ol>
 
-            {/* Final Touch: Tailwind CSS and DaisyUI */}
             <p className="text-2xl font-bold px-8 pb-5">Follow the link to Install Tailwind CSS and daisyUI</p>
             <div className='flex justify-center items-center pb-5'>
-                <a href='https://tailwindcss.com/docs/plugins' className='px-10'><RiTailwindCssFill className="h-10 w-10 text-blue-500 mr-2" />
-                </a>
-                <a href='https://daisyui.com/docs/install/' ><SiDaisyui className="h-10 w-10 mr-2" />
+                <a href='https://tailwindcss.com/docs/plugins'className='tooltip tooltip-top px-10' data-tip="Click to download TailwindCss"><RiTailwindCssFill className="h-10 w-10 text-blue-500 mr-2" /> </a>
+                <a href='https://daisyui.com/docs/install/' className='tooltip tooltip-top' data-tip="Click to download DaisyUI"><SiDaisyui className="h-10 w-10 mr-2" />
                 </a>
             </div>
         </div>
