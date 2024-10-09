@@ -1,37 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RiTailwindCssFill } from "react-icons/ri";
 import { SiDaisyui } from "react-icons/si";
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { FaCat } from "react-icons/fa6";
 import { FaNode } from "react-icons/fa";
-
+import { IoHomeOutline } from "react-icons/io5";
+import { MdNavigateNext } from "react-icons/md";
 function GetStart() {
-    const [theme, setTheme] = useState<string>('cupcake'); // State to manage the theme (light/dark)
+    const [theme, setTheme] = useState<string>(() => {
+        return localStorage.getItem('theme') || 'cupcake';
+    });
     const navigate = useNavigate();
 
     const Goback = () => {
         navigate('/');
     };
 
+    const GoNext = () => {
+        window.scrollTo(0, 0);
+        navigate('/ReactHook');
+    };
+
     const toggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTheme(event.target.checked ? 'coffee' : 'cupcake');
     };
 
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute('data-theme', theme); // Apply the theme to the document root
+    }, [theme]);
+    
     return (
         <div data-theme={theme}>
             <div className="flex items-center justify-between p-5">
                 <div className="flex items-center gap-2">
                     <div className="tooltip tooltip-right" data-tip="Cat (: Click to download React-Icon">
-                    <a href='https://react-icons.github.io/react-icons' className='px-10'><FaCat className="h-10 w-10" /> </a>
+                        <a href='https://react-icons.github.io/react-icons' className='px-10'><FaCat className="h-10 w-10" /> </a>
                     </div>
                     <h1 className="text-4xl font-bold">Vite + React: A Beginner’s Guide</h1>
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <button className="btn btn-primary" onClick={Goback}>Go Back</button>
+                    <button className="px-5" onClick={Goback}><IoHomeOutline className="h-6 w-6" /></button>
 
                     <label className="swap swap-rotate ">
+                        <input
+                            type="checkbox"
+                            onChange={toggleTheme}
+                            checked={theme === 'coffee'} // Check if the theme is 'coffee'
+                        />
                         <input type="checkbox" onChange={toggleTheme} />
                         <FiSun className="swap-off h-6 w-6 fill-current" />
                         <FiMoon className="swap-on h-6 w-6 fill-current" />
@@ -126,10 +144,17 @@ function GetStart() {
 
             <p className="text-2xl font-bold px-8 pb-5">Follow the link to Install Tailwind CSS and daisyUI</p>
             <div className='flex justify-center items-center pb-5'>
-                <a href='https://tailwindcss.com/docs/plugins'className='tooltip tooltip-top px-10' data-tip="Click to download TailwindCss"><RiTailwindCssFill className="h-10 w-10 text-blue-500 mr-2" /> </a>
+                <a href='https://tailwindcss.com/docs/plugins' className='tooltip tooltip-top px-10' data-tip="Click to download TailwindCss"><RiTailwindCssFill className="h-10 w-10 text-blue-500 mr-2" /> </a>
                 <a href='https://daisyui.com/docs/install/' className='tooltip tooltip-top' data-tip="Click to download DaisyUI"><SiDaisyui className="h-10 w-10 mr-2" />
                 </a>
             </div>
+            <div className='flex justify-end items-end pb-5 pr-5'>
+                <button className="btn btn-primary px-3 flex items-center gap-2" onClick={GoNext}>
+                    Next
+                    <MdNavigateNext className="h-6 w-6" />
+                </button>
+            </div>
+
         </div>
     );
 }

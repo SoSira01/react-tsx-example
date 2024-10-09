@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom';
 function Gallery() {
   const [photos, setPhotos] = useState<Photo[]>([]); // State to store Photo
   const [loading, setLoading] = useState<boolean>(true); // State to manage loading
-  const [theme, setTheme] = useState<string>('cupcake'); // State to manage the theme (light/dark)
+  const [theme, setTheme] = useState<string>(() => {
+    return localStorage.getItem('theme') || 'cupcake';
+  });
   const navigate = useNavigate();
 
   const fetchPhotos = async () => {
@@ -27,15 +29,20 @@ function Gallery() {
     fetchPhotos();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme); // Apply the theme to the document root
+  }, [theme]);
+
   // Function to toggle between light and dark theme
   const toggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTheme(event.target.checked ? 'coffee' : 'cupcake');
+    setTheme((prevTheme) => (prevTheme === 'cupcake' ? 'coffee' : 'cupcake'));
   };
 
   const GetStart = () => {
     navigate('/GetStart');
   };
-  
+
   return (
     <div className="App">
       <div data-theme={theme}>
@@ -61,12 +68,16 @@ function Gallery() {
             {/* Theme Toggle with Swap */}
             <label className="swap swap-rotate">
               {/* Hidden checkbox controls the state */}
-              <input type="checkbox" onChange={toggleTheme} />
+              <input
+                type="checkbox"
+                onChange={toggleTheme}
+                checked={theme === 'coffee'} // Check if the theme is 'coffee'
+              />
 
-              {/* Sun icon */}
+              {/* Sun icon (Visible when 'cupcake' theme is active) */}
               <FiSun className="swap-off h-6 w-6 fill-current mr-5" />
 
-              {/* Moon icon */}
+              {/* Moon icon (Visible when 'coffee' theme is active) */}
               <FiMoon className="swap-on h-6 w-6 fill-current mr-5" />
             </label>
           </div>
